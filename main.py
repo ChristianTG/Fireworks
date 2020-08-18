@@ -15,7 +15,7 @@ def instantiate(p):
     p /= 100 # p = probability of instantiating each frame
     
     if r.uniform(0, 1) <= p:
-        fireworks.append(f.Particle(r.randint(0, 800), 800))
+        fireworks.append(f.Firework(r.randint(0, 800), 800))
     
 
 def game():      
@@ -30,6 +30,19 @@ def game():
         for firework in fireworks:
             firework.update()
             firework.show(screen)
+            
+            if firework.exploded:
+                remove = True
+                for particle in firework.particles:
+                    particle.update()
+                    particle.show(screen)
+                    if particle.color[3] > 0:   #If one particle still exists, dont remove
+                        remove = False
+                
+                if remove:
+                    fireworks.remove(firework)
+            
+            
         clock.tick(60)
         pg.display.flip()
     
