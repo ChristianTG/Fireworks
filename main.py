@@ -26,7 +26,7 @@ def game():
                 return
         
         instantiate(10)
-        screen.fill((61, 52, 235))
+        screen.fill((0, 0, 0))
         for firework in fireworks:
             firework.update()
             firework.show(screen)
